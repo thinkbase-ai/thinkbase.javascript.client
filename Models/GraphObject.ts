@@ -1,4 +1,4 @@
-class GraphObject {
+class GraphObject extends GraphElement {
 
     private _externalId: string;
     private _out: GraphConnection[];

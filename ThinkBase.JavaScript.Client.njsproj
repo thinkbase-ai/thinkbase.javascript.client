@@ -53,6 +53,9 @@
     <TypeScriptCompile Include="Models\GraphConnection.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Models\GraphElement.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Models\GraphModel.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
