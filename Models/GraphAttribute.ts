@@ -22,6 +22,8 @@ class GraphAttribute extends GraphElement{
     public get value() {return this._value }
     public get confidence() { return this._confidence }
     public get type() { return this._type }
-
+    public set value(ext: string) { this._value = ext; }
+    public set confidence(ext: number) { this._confidence = ext; }
+    public set type(ext: DataType) { this._type = ext; }
 
 }

@@ -44,6 +44,9 @@
     <TypeScriptCompile Include="Models\DarlTime.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Models\DarlTimeInput.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Models\DataMap.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -51,6 +54,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Models\GraphConnection.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Models\GraphConnectionInput.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Models\GraphElement.ts">

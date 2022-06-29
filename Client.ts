@@ -23,6 +23,12 @@ class Client {
 
     public async CreateGraphConnection(gc: GraphConnection): Promise<GraphConnection> {
 
+        const data = await this.client.request(
+            "mutation ($name: String! $graphConnection: graphConnectionInput!){createGraphConnection(graphName: $name graphConnection: $graphConnection ontology: BUILD){id}}",
+            { name: this._graphName, graphConnection: this.Convert(gc) }
+        );
+        gc.id = data.createGraphConnection.id;
+        return gc;
     }
 
     public async CreateGraphObject(go: GraphObject): Promise<GraphObject> {
@@ -50,12 +56,24 @@ class Client {
     }
 
 
-    ExportNodaModel(): Promise<String> {
+    public async ExportNodaModel(): Promise<String> {
 
+        const data = await this.client.request(
+            "query ($name: String! ){exportNoda(graphName: $name)}",
+            { name: this._graphName }
+        );
+        return data.exportNoda;
     }
 
-    FetchModel(asSystem: boolean  = false) : Promise<GraphModel> {
+    public async FetchModel(asSystem: boolean = false): Promise<GraphModel> {
 
+        const data = await this.client.request(
+            "query ($name: String! $ass: Boolean){kGraphByName(name: $name asSystem: $ass){name model{vertices{name value{lineage subLineage id externalId properties{lineage name value type existence {raw precision } properties{lineage name value type existence {raw precision } }} existence {raw precision }}} edges {name value{lineage endId startId name inferred weight id existence {raw precision }}}}}}",
+            { name: this._graphName, ass: asSystem }
+        );
+        this._model = data.kGraphByName.model;
+        this._model.Init();
+        return this._model;
     }
 
     GetChildKnowledgeStates(parentId: string, asSystem: boolean = false ) : Promise<List<KnowledgeState>> {
@@ -130,6 +148,19 @@ class Client {
 
     DeleteSubAttributeByName(ObjectName: string, attName: string, subAttName: string ): Promise<boolean> {
 
+    }
+
+
+    private Convert(gc: GraphConnection): GraphConnectionInput  {
+        List<DarlTimeInput> ? existence = null;
+        if (gc.existence != null) {
+            existence = new List<DarlTimeInput>();
+            foreach(var e in gc.existence)
+            {
+                existence.Add(Convert(e));
+            }
+        }
+        return new GraphConnectionInput { existence = existence, name = gc.name, lineage = gc.lineage, startId = gc.startId, endId = gc.endId };
     }
 
 
